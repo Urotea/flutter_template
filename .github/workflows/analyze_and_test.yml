@@ -1,0 +1,25 @@
+name: analyze_and_test
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    name:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test --coverage
+      - uses: codecov/codecov-action@v1.1.0
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+          file: ~/coverage/lcov.info
