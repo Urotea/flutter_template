@@ -22,12 +22,14 @@ class MainApp extends StatelessWidget {
             children: [
               Text(
                 'You have pushed the button this many times:',
+                key: Key("contents"),
               ),
               StoreConnector<MainState, String>(
                 converter: (store) => store.state.count.toString(),
                 builder: (context, count) {
                   return Text(
                     count,
+                    key: Key("counter"),
                     style: Theme.of(context).textTheme.headline4,
                   );
                 },
@@ -45,6 +47,7 @@ class MainApp extends StatelessWidget {
             return FloatingActionButton(
               onPressed: callback,
               tooltip: 'asdasdasd',
+              key: Key("increment"),
               child: Icon(Icons.add),
             );
           },
