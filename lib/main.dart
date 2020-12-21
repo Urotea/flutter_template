@@ -1,42 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:state_notifier/state_notifier.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_template/actions/app_actions.dart';
+import 'package:flutter_template/container_widget/main_app.dart';
+import 'package:flutter_template/state/main_state.dart';
+import 'package:redux/redux.dart';
+
+import 'reducers/counter_reducer.dart';
 
 void main() {
-  runApp(
-    ProviderScope(
-      child: CounterApp(),
-    ),
-  );
+  final store = Store<MainState>(counterReducer, initialState: MainState());
+
+  runApp(FlutterReduxApp(
+    title: 'Flutter Redux Demo',
+    store: store,
+  ));
 }
 
-class Counter extends StateNotifier<int> {
-  Counter() : super(0);
-  void increment() => state++;
-}
+class FlutterReduxApp extends StatelessWidget {
+  final Store<MainState> store;
+  final String title;
 
-// Note: CounterApp is a HookWidget, from flutter_hooks.
-class CounterApp extends HookWidget {
-  final counterProvider = StateNotifierProvider((_) => Counter());
+  FlutterReduxApp({Key key, this.store, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final state = useProvider(counterProvider.state);
-    final counter = useProvider(counterProvider);
-
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text('CounterApp')),
-        body: Center(
-          child: Text(state.toString()),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed:() => counter.increment(),
-          child: Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
-      ),
+    // The StoreProvider should wrap your MaterialApp or WidgetsApp. This will
+    // ensure all routes have access to the store.
+    return StoreProvider<MainState>(
+      // Pass the store to the StoreProvider. Any ancestor `StoreConnector`
+      // Widgets will find and use this value as the `Store`.
+      store: store,
+      child: MainApp(title: title),
     );
   }
 }
-

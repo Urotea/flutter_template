@@ -5,6 +5,7 @@ targets:
         generate_for:
           include:
             - lib/**/*state.dart
+            - lib/**/app_actions.dart
 #       json_serializable:
 #         generate_for:
 #           include:

@@ -6,13 +6,8 @@ part 'main_state.g.dart';
 @freezed
 abstract class MainState with _$MainState {
   const factory MainState({
-    @Default(MainPageState.HOME) MainPageState pageState,
+    @Default(0) int count,
   }) = _MainState;
 
  factory MainState.fromJson(Map<String, dynamic> json) => _$MainStateFromJson(json);
-}
-
-enum MainPageState {
-  HOME,
-  FAVORITE,
 }
