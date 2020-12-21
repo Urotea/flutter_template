@@ -9,5 +9,5 @@ abstract class MainState with _$MainState {
     @Default(0) int count,
   }) = _MainState;
 
- factory MainState.fromJson(Map<String, dynamic> json) => _$MainStateFromJson(json);
+  factory MainState.fromJson(Map<String, dynamic> json) => _$MainStateFromJson(json);
 }

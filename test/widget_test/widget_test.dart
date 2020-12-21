@@ -17,7 +17,10 @@ void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     final store = Store<MainState>(counterReducer, initialState: MainState());
-    await tester.pumpWidget(FlutterReduxApp(title: "test",store: store,));
+    await tester.pumpWidget(FlutterReduxApp(
+      title: "test",
+      store: store,
+    ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

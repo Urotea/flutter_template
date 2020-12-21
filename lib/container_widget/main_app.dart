@@ -5,11 +5,11 @@ import 'package:flutter_template/state/main_state.dart';
 
 class MainApp extends StatelessWidget {
   final String title;
-  MainApp({Key key, this.title}): super(key: key);
+  MainApp({Key key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-   return MaterialApp(
+    return MaterialApp(
       theme: ThemeData.dark(),
       title: title,
       home: Scaffold(

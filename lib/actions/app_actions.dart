@@ -7,5 +7,5 @@ part 'app_actions.g.dart';
 abstract class AppActions with _$AppActions {
   const factory AppActions.increment() = Increment;
 
- factory AppActions.fromJson(Map<String, dynamic> json) => _$AppActionsFromJson(json);
+  factory AppActions.fromJson(Map<String, dynamic> json) => _$AppActionsFromJson(json);
 }
