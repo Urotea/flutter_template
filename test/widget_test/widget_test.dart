@@ -14,7 +14,7 @@ import 'package:redux/redux.dart';
 import 'package:flutter_template/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('item add test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     final store = Store<MainState>(counterReducer, initialState: MainState());
     await tester.pumpWidget(FlutterReduxApp(
@@ -23,15 +23,16 @@ void main() {
     ));
 
     // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.byIcon(Icons.flight_land), findsNothing);
 
     // Tap the '+' icon and trigger a frame.
     await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
-
     // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.byIcon(Icons.flight_land), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+    expect(find.byIcon(Icons.flight_land), findsWidgets);
   });
 }

@@ -1,3 +1,5 @@
+![analyze_and_test](https://github.com/Urotea/flutter_template/workflows/analyze_and_test/badge.svg)
+
 # flutter_template
 
 A new Flutter project.
