@@ -6,7 +6,7 @@ MainState counterReducer(MainState state, dynamic action) {
   final appActions = action as AppActions;
 
   final newState = appActions.map(
-    increment: (Increment _) => state.copyWith(count: state.count + 1),
+    addItem: (AddItem _) => state.copyWith(itemList: state.itemList + ["test"]),
   );
 
   return newState;

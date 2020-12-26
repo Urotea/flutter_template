@@ -6,10 +6,10 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('counter_reducerの正常形', () {
     test('incrementアクションで値が1つ増えたstateが出力される', () {
-      final state = MainState(count: 0);
-      final result = counterReducer(state, AppActions.increment());
-      expect(state, MainState(count: 0));
-      expect(result, MainState(count: 1));
+      final state = MainState(itemList: []);
+      final result = counterReducer(state, AppActions.addItem());
+      expect(state, MainState(itemList: []));
+      expect(result, MainState(itemList: ["test"]));
     });
   });
 }
