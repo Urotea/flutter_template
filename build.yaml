@@ -7,10 +7,8 @@ targets:
             - lib/state/*.dart
             - lib/state/**/*.dart
             - lib/actions/*.dart
-#       json_serializable:
-#         generate_for:
-#           include:
-#             - lib/model/firestore/**/*.dart
+            - lib/**/exception/*.dart
+            - lib/**/entity/*.dart
         options:
           any_map: true
           explicit_to_json: true

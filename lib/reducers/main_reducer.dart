@@ -7,15 +7,14 @@ MainState mainReducer(MainState state, dynamic action) {
   final appActions = action as AppActions;
 
   final newState = appActions.map(
-    addItem: (AddItem _) => state.copyWith(
-      repoInfoList: state.repoInfoList +
-          [
-            RepoInfo(
-                repoName: "testName",
-                repoOwner: "testOwner",
-                repoDescription: "testDescription"),
-          ],
-    ),
+    searchButtonTapped: (SearchButtonTapped _) => state,
+    repositoryReceived: (RepositoryReceived action) => state.copyWith(
+        repoInfoList: action.repos
+            .map((repo) => RepoInfo(
+                repoName: repo.name,
+                repoOwner: repo.owner.login,
+                repoDescription: repo.description ?? ""))
+            .toList()),
   );
 
   return newState;

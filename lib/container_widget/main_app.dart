@@ -31,7 +31,8 @@ class MainApp extends StatelessWidget {
           converter: (store) {
             // Return a `VoidCallback`, which is a fancy name for a function
             // with no parameters. It only dispatches an Increment action.
-            return () => store.dispatch(AppActions.addItem());
+            return () =>
+                store.dispatch(AppActions.searchButtonTapped("Urotea"));
           },
           builder: (context, callback) {
             return FloatingActionButton(

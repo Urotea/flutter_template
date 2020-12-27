@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_template/container_widget/main_app.dart';
+import 'package:flutter_template/middleware/app_actions_middleware.dart';
 import 'package:flutter_template/state/main_state.dart';
 import 'package:redux/redux.dart';
 
+import 'middleware/dao/github_dao.dart';
 import 'reducers/main_reducer.dart';
 
 void main() {
+  final AppActionsMiddleware appActionsMiddleware =
+      AppActionsMiddleware(githubDao: GithubDao());
+
   final store = Store<MainState>(
     mainReducer,
     initialState: MainState(),
-    middleware: [],
+    middleware: [appActionsMiddleware.searchButtonTappedMiddleware],
   );
 
   runApp(FlutterReduxApp(
