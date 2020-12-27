@@ -5,13 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
-import 'package:flutter_template/reducers/main_reducer.dart';
-import 'package:flutter_template/state/main_state.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:redux/redux.dart';
-
-import 'package:flutter_template/main.dart';
 
 void main() {
   testWidgets('item add test', (WidgetTester tester) async {

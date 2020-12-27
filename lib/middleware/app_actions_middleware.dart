@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_template/actions/app_actions.dart';
-import 'package:redux/redux.dart';
 import 'package:flutter_template/state/main_state.dart';
+import 'package:redux/redux.dart';
 
 import 'dao/github_dao.dart';
 

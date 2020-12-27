@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'entity/repo_info.dart';
+
 part 'main_state.freezed.dart';
 
 @freezed

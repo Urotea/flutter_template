@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'license.dart';
 import 'owner.dart';
+
 part 'repository.freezed.dart';
 part 'repository.g.dart';
 
