@@ -4,10 +4,14 @@ import 'package:flutter_template/container_widget/main_app.dart';
 import 'package:flutter_template/state/main_state.dart';
 import 'package:redux/redux.dart';
 
-import 'reducers/counter_reducer.dart';
+import 'reducers/main_reducer.dart';
 
 void main() {
-  final store = Store<MainState>(counterReducer, initialState: MainState());
+  final store = Store<MainState>(
+    mainReducer,
+    initialState: MainState(),
+    middleware: [],
+  );
 
   runApp(FlutterReduxApp(
     title: 'Flutter Redux Demo',

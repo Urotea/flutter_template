@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/state/entity/repo_info.dart';
+
+import 'github_list_item.dart';
 
 class GithubList extends StatelessWidget {
-  final List<String> itemList;
+  final List<RepoInfo> repoInfoList;
 
-  GithubList({Key key, @required this.itemList}) : super(key: key);
+  GithubList({Key key, @required this.repoInfoList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(),
-            ),
-          ),
-          child: ListTile(
-            leading: const Icon(Icons.flight_land),
-            title: Text("title"),
-            subtitle: Text("subtitle"),
-            onTap: () {},
-          ),
+        return GithubListItem(
+          repoName: this.repoInfoList[index].repoName,
+          repoDescription: this.repoInfoList[index].repoDescription,
+          repoOwner: this.repoInfoList[index].repoOwner,
+          onTap: () {},
         );
       },
-      itemCount: this.itemList.length,
+      itemCount: this.repoInfoList.length,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_template/actions/app_actions.dart';
+import 'package:flutter_template/state/entity/repo_info.dart';
 import 'package:flutter_template/state/main_state.dart';
 
 import '../presentational_widget/github_list.dart';
@@ -19,11 +20,11 @@ class MainApp extends StatelessWidget {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: StoreConnector<MainState, List<String>>(converter: (store) {
-          return store.state.itemList;
-        }, builder: (context, itemList) {
+        body: StoreConnector<MainState, List<RepoInfo>>(converter: (store) {
+          return store.state.repoInfoList;
+        }, builder: (context, repoInfoList) {
           return GithubList(
-            itemList: itemList,
+            repoInfoList: repoInfoList,
           );
         }),
         floatingActionButton: StoreConnector<MainState, VoidCallback>(

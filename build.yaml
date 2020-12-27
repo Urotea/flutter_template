@@ -4,8 +4,9 @@ targets:
       freezed:
         generate_for:
           include:
-            - lib/**/*state.dart
-            - lib/**/app_actions.dart
+            - lib/state/*.dart
+            - lib/state/**/*.dart
+            - lib/actions/*.dart
 #       json_serializable:
 #         generate_for:
 #           include:
