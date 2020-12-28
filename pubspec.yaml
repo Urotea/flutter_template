@@ -30,6 +30,7 @@ dependencies:
   freezed_annotation:
   flutter_redux:
   http:
+  oxidized:
 
 dev_dependencies:
   flutter_test:

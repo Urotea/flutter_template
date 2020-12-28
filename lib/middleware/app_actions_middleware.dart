@@ -20,10 +20,12 @@ class AppActionsMiddleware {
     next(action);
     var a = action as SearchButtonTapped;
 
-    this
-        .githubDao
-        .fetchRepositories(a.owner)
-        .then((repos) => store.dispatch(AppActions.repositoryReceived(repos)))
-        .catchError((e) => print(e));
+    this.githubDao.fetchRepositories(a.owner).then((result) => result.when(
+          ok: (repos) => store.dispatch(AppActions.repositoryReceived(repos)),
+          err: (e) {
+            // 失敗したときの処理を書く。
+            print(e);
+          },
+        ));
   }
 }
