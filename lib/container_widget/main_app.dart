@@ -13,36 +13,29 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark(),
-      title: title,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: StoreConnector<MainState, List<RepoInfo>>(converter: (store) {
-          return store.state.repoInfoList;
-        }, builder: (context, repoInfoList) {
-          return GithubList(
-            repoInfoList: repoInfoList,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: StoreConnector<MainState, List<RepoInfo>>(converter: (store) {
+        return store.state.repoInfoList;
+      }, builder: (context, repoInfoList) {
+        return GithubList(repoInfoList: repoInfoList);
+      }),
+      floatingActionButton: StoreConnector<MainState, VoidCallback>(
+        converter: (store) {
+          // Return a `VoidCallback`, which is a fancy name for a function
+          // with no parameters. It only dispatches an Increment action.
+          return () => store.dispatch(AppActions.searchButtonTapped("Urotea"));
+        },
+        builder: (context, callback) {
+          return FloatingActionButton(
+            onPressed: callback,
+            tooltip: 'increment',
+            key: Key("increment"),
+            child: Icon(Icons.add),
           );
-        }),
-        floatingActionButton: StoreConnector<MainState, VoidCallback>(
-          converter: (store) {
-            // Return a `VoidCallback`, which is a fancy name for a function
-            // with no parameters. It only dispatches an Increment action.
-            return () =>
-                store.dispatch(AppActions.searchButtonTapped("Urotea"));
-          },
-          builder: (context, callback) {
-            return FloatingActionButton(
-              onPressed: callback,
-              tooltip: 'asdasdasd',
-              key: Key("increment"),
-              child: Icon(Icons.add),
-            );
-          },
-        ),
+        },
       ),
     );
   }

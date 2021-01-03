@@ -39,7 +39,11 @@ class FlutterReduxApp extends StatelessWidget {
       // Pass the store to the StoreProvider. Any ancestor `StoreConnector`
       // Widgets will find and use this value as the `Store`.
       store: store,
-      child: MainApp(title: title),
+      child: MaterialApp(
+        theme: ThemeData.dark(),
+        title: title,
+        home: MainApp(title: title),
+      ),
     );
   }
 }

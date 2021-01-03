@@ -13,7 +13,7 @@ class GithubListItem extends StatelessWidget {
     @required this.repoDescription,
     @required this.repoOwner,
     @required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
