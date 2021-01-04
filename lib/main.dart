@@ -40,7 +40,11 @@ class FlutterReduxApp extends StatelessWidget {
       // Widgets will find and use this value as the `Store`.
       store: store,
       child: MaterialApp(
-        theme: ThemeData.dark(),
+        theme: ThemeData.light().copyWith(
+          appBarTheme: ThemeData.light().appBarTheme.copyWith(
+            color: Colors.white,
+          )
+        ),
         title: title,
         home: MainApp(title: title),
       ),
