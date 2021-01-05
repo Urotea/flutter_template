@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_template/actions/app_actions.dart';
-import 'package:flutter_template/container_widget/search_delegate.dart';
-import 'package:flutter_template/presentational_widget/github_list.dart';
+import 'package:flutter_template/presentational_widget/github_user_search/github_user_search.dart';
+import 'package:flutter_template/presentational_widget/github_list/github_list.dart';
+import 'package:flutter_template/presentational_widget/github_user_search/github_user_search_dao.dart';
 import 'package:flutter_template/state/entity/repo_info.dart';
 import 'package:flutter_template/state/main_state.dart';
 
@@ -29,7 +30,10 @@ class MainApp extends StatelessWidget {
                       title: TextField(
                         readOnly: true,
                         decoration: InputDecoration(hintText: "Search..."),
-                        onTap: () => showSearch(context: context, delegate: MySearchDelegate()),
+                        onTap: () async {
+                          var result = await showSearch<String>(context: context, delegate: GithubUserSearch(dao: GithubUserSearchDao()));
+                          print("result: $result");
+                        },
                       ),
                     ),
                   ],

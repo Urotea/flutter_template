@@ -32,6 +32,7 @@ dependencies:
   http:
   oxidized:
   floating_search_bar:
+  throttling:
 
 dev_dependencies:
   flutter_test:
