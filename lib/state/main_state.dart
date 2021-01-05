@@ -8,6 +8,7 @@ part 'main_state.freezed.dart';
 @freezed
 abstract class MainState with _$MainState {
   const factory MainState({
+    @Default("") String searchWord,
     @Default([]) List<RepoInfo> repoInfoList,
   }) = _MainState;
 }

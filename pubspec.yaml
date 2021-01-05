@@ -33,6 +33,7 @@ dependencies:
   oxidized:
   floating_search_bar:
   throttling:
+  equatable:
 
 dev_dependencies:
   flutter_test:

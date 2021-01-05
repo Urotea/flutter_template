@@ -1,11 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_template/actions/app_actions.dart';
-import 'package:flutter_template/presentational_widget/github_user_search/github_user_search.dart';
 import 'package:flutter_template/presentational_widget/github_list/github_list.dart';
+import 'package:flutter_template/presentational_widget/github_user_search/github_user_search.dart';
 import 'package:flutter_template/presentational_widget/github_user_search/github_user_search_dao.dart';
+import 'package:flutter_template/presentational_widget/stateless_textfield/stateless_textfield.dart';
 import 'package:flutter_template/state/entity/repo_info.dart';
 import 'package:flutter_template/state/main_state.dart';
 
@@ -16,45 +17,59 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(title),
-      // ),
-      body: StoreConnector<MainState, List<RepoInfo>>(converter: (store) {
-        return store.state.repoInfoList;
-      }, builder: (context, repoInfoList) {
-        return SafeArea(
-          child: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool enabled) => [
-                    SliverFloatingBar(
-                      title: TextField(
-                        readOnly: true,
-                        decoration: InputDecoration(hintText: "Search..."),
-                        onTap: () async {
-                          var result = await showSearch<String>(context: context, delegate: GithubUserSearch(dao: GithubUserSearchDao()));
-                          print("result: $result");
-                        },
-                      ),
-                    ),
-                  ],
-              body: GithubList(repoInfoList: repoInfoList)),
-        );
-      }),
-      floatingActionButton: StoreConnector<MainState, VoidCallback>(
-        converter: (store) {
-          // Return a `VoidCallback`, which is a fancy name for a function
-          // with no parameters. It only dispatches an Increment action.
-          return () => store.dispatch(AppActions.searchButtonTapped("Urotea"));
-        },
-        builder: (context, callback) {
-          return FloatingActionButton(
-            onPressed: callback,
-            tooltip: 'increment',
-            key: Key("increment"),
-            child: Icon(Icons.add),
-          );
-        },
+    return SafeArea(
+      child: Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool enabled) => [
+            SliverFloatingBar(
+              title: StoreConnector<MainState, _HeaderArgs>(
+                converter: (store) => _HeaderArgs(
+                    headerText: store.state.searchWord,
+                    searchCallback: (String str) =>
+                        store.dispatch(AppActions.searchButtonTapped(str))),
+                builder: (context, arg) => StatelessTextField(
+                  initialValue: arg.headerText,
+                  readOnly: true,
+                  decoration: InputDecoration(hintText: "Search..."),
+                  onTap: () async {
+                    var result = await showSearch<String>(
+                        context: context,
+                        delegate: GithubUserSearch(dao: GithubUserSearchDao()));
+                    if (result != null) {
+                      arg.searchCallback(result);
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+          body: StoreConnector<MainState, _BodyArgs>(
+              converter: (store) =>
+                  _BodyArgs(repoList: store.state.repoInfoList),
+              builder: (context, arg) =>
+                  GithubList(repoInfoList: arg.repoList)),
+        ),
       ),
     );
   }
+}
+
+class _HeaderArgs extends Equatable {
+  final Function(String) searchCallback;
+  final String headerText;
+
+  _HeaderArgs({this.headerText: "", @required this.searchCallback})
+      : assert(searchCallback != null);
+
+  @override
+  List<Object> get props => [headerText, searchCallback];
+}
+
+class _BodyArgs extends Equatable {
+  final List<RepoInfo> repoList;
+
+  _BodyArgs({@required this.repoList}) : assert(repoList != null);
+
+  @override
+  List<Object> get props => [repoList];
 }

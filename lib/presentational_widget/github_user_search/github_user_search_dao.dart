@@ -22,7 +22,6 @@ class GithubUserSearchDao {
     } finally {
       client.close();
     }
-    logger.log("httpを実際に行いました。", time: DateTime.now());
 
     if (response.statusCode >= 400) {
       throw HttpException("Http通信でstatusCodeが${response.statusCode}です。",

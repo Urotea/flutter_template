@@ -20,6 +20,8 @@ class GithubUserSearch extends SearchDelegate<String> {
 
   @override
   List<Widget> buildActions(BuildContext context) => [
+        IconButton(
+            icon: Icon(Icons.check), onPressed: () => close(context, query)),
         IconButton(icon: Icon(Icons.clear), onPressed: () => query = ''),
       ];
 
@@ -28,6 +30,16 @@ class GithubUserSearch extends SearchDelegate<String> {
         icon: Icon(Icons.arrow_back),
         onPressed: () => Navigator.pop(context),
       );
+
+  @override
+  void showResults(BuildContext context) {
+    super.showResults(context);
+  }
+
+  @override
+  void showSuggestions(BuildContext context) {
+    super.showSuggestions(context);
+  }
 
   @override
   Widget buildResults(BuildContext context) =>
@@ -61,13 +73,15 @@ class GithubUserSearch extends SearchDelegate<String> {
         },
       );
 
-  Future<GithubSearchResult> _getThrottling(q) {
+  Future<GithubSearchResult> _getThrottling(String q) {
+    if(q.isEmpty) return searchResult;
     searchResult =
         throttling.throttle(() => dao.getGithubUserName(q)) ?? searchResult;
     return searchResult;
   }
 
-  Future<GithubSearchResult> _refreshThrottling(q) {
+  Future<GithubSearchResult> _refreshThrottling(String q) {
+    if(q.isEmpty) return searchResult;
     searchResult = dao.getGithubUserName(q);
     return searchResult;
   }

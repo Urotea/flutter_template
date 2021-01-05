@@ -7,7 +7,9 @@ MainState mainReducer(MainState state, dynamic action) {
   final appActions = action as AppActions;
 
   final newState = appActions.map(
-    searchButtonTapped: (SearchButtonTapped _) => state,
+    searchButtonTapped: (SearchButtonTapped action) => state.copyWith(
+      searchWord: action.owner,
+    ),
     repositoryReceived: (RepositoryReceived action) => state.copyWith(
         repoInfoList: action.repos
             .map((repo) => RepoInfo(
