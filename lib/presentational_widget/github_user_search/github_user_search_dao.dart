@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:developer' as logger;
 
 import 'package:http/http.dart' as http;
 

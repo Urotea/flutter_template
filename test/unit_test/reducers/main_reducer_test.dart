@@ -10,7 +10,7 @@ void main() {
     test('stateが変化しない', () {
       final state = MainState(repoInfoList: []);
       final result = mainReducer(state, AppActions.searchButtonTapped("test"));
-      expect(result, MainState(repoInfoList: []));
+      expect(result, MainState(searchWord: "test", repoInfoList: []));
     });
   });
 

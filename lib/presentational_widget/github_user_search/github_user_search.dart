@@ -11,10 +11,8 @@ typedef _ThrottlingCallback = Future<GithubSearchResult> Function(String);
 class GithubUserSearch extends SearchDelegate<String> {
   final GithubUserSearchDao dao;
   final throttling = Throttling(duration: Duration(milliseconds: 1500));
-  Future<GithubSearchResult> searchResult = (Completer<GithubSearchResult>()
-        ..complete(GithubSearchResult(
-            totalCount: 0, incompleteResults: false, items: [])))
-      .future;
+  Future<GithubSearchResult> searchResult = Future.value(
+      GithubSearchResult(totalCount: 0, incompleteResults: false, items: []));
 
   GithubUserSearch({@required this.dao}) : assert(dao != null);
 
@@ -74,14 +72,14 @@ class GithubUserSearch extends SearchDelegate<String> {
       );
 
   Future<GithubSearchResult> _getThrottling(String q) {
-    if(q.isEmpty) return searchResult;
+    if (q.isEmpty) return searchResult;
     searchResult =
         throttling.throttle(() => dao.getGithubUserName(q)) ?? searchResult;
     return searchResult;
   }
 
   Future<GithubSearchResult> _refreshThrottling(String q) {
-    if(q.isEmpty) return searchResult;
+    if (q.isEmpty) return searchResult;
     searchResult = dao.getGithubUserName(q);
     return searchResult;
   }

@@ -41,10 +41,9 @@ class FlutterReduxApp extends StatelessWidget {
       store: store,
       child: MaterialApp(
         theme: ThemeData.light().copyWith(
-          appBarTheme: ThemeData.light().appBarTheme.copyWith(
-            color: Colors.white,
-          )
-        ),
+            appBarTheme: ThemeData.light().appBarTheme.copyWith(
+                  color: Colors.white,
+                )),
         title: title,
         home: MainApp(title: title),
       ),

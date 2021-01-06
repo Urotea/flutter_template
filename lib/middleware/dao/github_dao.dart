@@ -9,7 +9,8 @@ import 'entity/repository.dart';
 class GithubDao {
   GithubDao();
 
-  Future<Result<List<Repository>, HttpException>> fetchRepositories(String ownerName) async {
+  Future<Result<List<Repository>, HttpException>> fetchRepositories(
+      String ownerName) async {
     final String url = "https://api.github.com/users/$ownerName/repos";
     final client = http.Client();
 
